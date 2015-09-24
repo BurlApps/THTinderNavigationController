@@ -110,7 +110,13 @@ typedef NS_ENUM(NSInteger, THSlideType) {
 
 - (UIViewController *)getPageViewControllerAtIndex:(NSInteger)index {
     if (index < self.paggedViewControllers.count) {
-        return self.paggedViewControllers[index];
+        UIViewController *controller = self.paggedViewControllers[index];
+        CGRect frame = controller.view.frame;
+        
+        controller.view.frame = CGRectMake(frame.origin.x, self.paggingNavbar.frame.size.height,
+                                           frame.size.width, self.view.frame.size.height - self.paggingNavbar.frame.size.height);
+        
+        return controller;
     } else {
         return nil;
     }
